@@ -44,6 +44,8 @@ public class CreditDestinationWalletStep implements SagaStep{
         return true;
     }
 
+    @Override
+    @Transactional
     public boolean compensate(SagaContext context){
         Long toWalletId = context.getLong("toWalletId");
         BigDecimal amount = context.getBigDecimal("amount");

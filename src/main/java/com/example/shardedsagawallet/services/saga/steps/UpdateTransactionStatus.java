@@ -8,6 +8,7 @@ import com.example.shardedsagawallet.repositories.TransactionRepository;
 import com.example.shardedsagawallet.services.saga.SagaContext;
 import com.example.shardedsagawallet.services.saga.SagaStep;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -19,6 +20,7 @@ public class UpdateTransactionStatus implements SagaStep {
     private final TransactionRepository transactionRepository;
 
     @Override
+    @Transactional
     public boolean execute(SagaContext context){
         Long transactionId = context.getLong("transactionId");
         log.info("Updating transaction status for transaction {}", transactionId);
@@ -41,6 +43,7 @@ public class UpdateTransactionStatus implements SagaStep {
     }
 
     @Override
+    @Transactional
     public boolean compensate(SagaContext context){
         Long transactionId = context.getLong("transactionId");
 
